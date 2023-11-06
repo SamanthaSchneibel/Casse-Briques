@@ -4,8 +4,8 @@
 class GameObject
 {
 public:
-	GameObject(int x, int y, int h, int w);
-	GameObject(int x, int y, int radius);
+	GameObject(int x, int y, int h, int w, sf::Color oColor);
+	GameObject(int x, int y, int radius, sf::Color oColor);
 	~GameObject();
 
 	void move();
