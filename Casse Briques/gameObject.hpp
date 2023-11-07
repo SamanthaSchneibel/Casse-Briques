@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 class GameObject
@@ -8,8 +9,8 @@ public:
 	GameObject(int x, int y, int radius, sf::Color oColor);
 	~GameObject();
 
+	void rotation(float x, float y);
 	void move();
-	void rotation();
 	void collision();
 
 	sf::Shape* pShape;
