@@ -11,35 +11,42 @@ GameObject::GameObject(int x, int y, int radius, sf::Color oColor)
 {
 	pShape = new sf::CircleShape(radius);
 	pShape->setPosition(x, y);
-	pShape->setFillColor(oColor); 
+	pShape->setFillColor(oColor);
+	pShape->setOrigin(radius, radius);
 }
 
 GameObject::~GameObject()
 {
 }
 
-void GameObject::rotation(float x1, float y1) {
+void GameObject::rotation(float mouseX, float mouseY) {
 
 	pShape->setOrigin(10, 40);
-	float x2 = pShape->getPosition().x;
-	float y2 = pShape->getPosition().y;
-	float opp = abs(y2 - y1);
-	float adj = abs(x2 - x1);
+	float canonX = pShape->getPosition().x;
+	float canonY = pShape->getPosition().y;
+	float opp = mouseX - canonX;
+	float adj = mouseY - canonY;
 
-	float fAddedAngle = 0.f;
-	if (x1 < x2)
-		fAddedAngle = -90.f;
-
-	float angle = atan2(opp, adj) * 180 / 3.14;
-	pShape->setRotation(90-angle + fAddedAngle);
-	std::cout << angle << std::endl;
+	float angle = -atan(opp / adj) * 180 / 3.14;
+	pShape->setRotation(angle);
 
 }
 
-void GameObject::move() {
+void GameObject::move(float fDeltaTime, float directionX, float directionY) {
 
+	float norme = sqrt((directionX * directionX) + (directionY * directionY));
+	float nDirectionX = directionX / norme;
+	float nDirectionY = directionY / norme;
 
+	float ballX = pShape->getPosition().x;
+	float ballY = pShape->getPosition().y;
 
+	float speed = 500.f;
+
+	ballX += nDirectionX * speed * fDeltaTime;
+	ballY += nDirectionY * speed * fDeltaTime;
+
+	pShape->setPosition(ballX, ballY);
 }
 
 void GameObject::collision() {

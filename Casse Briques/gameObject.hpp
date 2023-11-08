@@ -9,8 +9,8 @@ public:
 	GameObject(int x, int y, int radius, sf::Color oColor);
 	~GameObject();
 
-	void rotation(float x, float y);
-	void move();
+	void rotation(float mouseX, float mouseY);
+	void move(float fDeltaTime, float directionX, float directionY);
 	void collision();
 
 	sf::Shape* pShape;
