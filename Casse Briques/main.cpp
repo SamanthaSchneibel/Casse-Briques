@@ -14,6 +14,8 @@ int main(int argc, char** argv)
     sf::Clock oClock;
     float fDeltaTime = 0;
     bool move = false;
+    float directionX;
+    float directionY;
     while (oWindow.isOpen())
     {
         //EVENT
@@ -26,6 +28,17 @@ int main(int argc, char** argv)
         if (oEvent.mouseButton.button == sf::Mouse::Left)
         {
             move = true;
+
+
+            float ballX = oBall.pShape->getPosition().x;
+            float ballY = oBall.pShape->getPosition().y;
+            float mouseX = sf::Mouse::getPosition(oWindow).x;
+            float mouseY = sf::Mouse::getPosition(oWindow).y;
+
+            directionX = mouseX - ballX;
+            directionY = mouseY - ballY;
+
+
         }
         
         //UPDATE
@@ -33,18 +46,9 @@ int main(int argc, char** argv)
         oCanon.rotation(sf::Mouse::getPosition(oWindow).x, sf::Mouse::getPosition(oWindow).y);
         
 
-        float ballX = oBall.pShape->getPosition().x;
-        float ballY = oBall.pShape->getPosition().y;
-        float mouseX = sf::Mouse::getPosition(oWindow).x;
-        float mouseY = sf::Mouse::getPosition(oWindow).y;
-
-        float directionX = mouseX - ballX;
-        float directionY = mouseY - ballY;
-        
         if (move == true)
         {
             oBall.move(fDeltaTime, directionX, directionY);
-            move = false;
         }
 
         //DRAW
