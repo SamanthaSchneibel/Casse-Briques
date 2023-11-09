@@ -9,6 +9,7 @@ int main(int argc, char** argv)
 
     GameObject oCanon(320, 480, 20, 40, sf::Color::Red);
     GameObject oBall(320, 480, 10, sf::Color::White);
+    GameObject oBrick(50, 50, 100, 50, sf::Color::Blue);
 
     //GameLoop
     sf::Clock oClock;
@@ -50,6 +51,7 @@ int main(int argc, char** argv)
 
         oWindow.draw(*oBall.pShape);
         oWindow.draw(*oCanon.pShape);
+        oWindow.draw(*oBrick.pShape);
        
         oWindow.display();
 

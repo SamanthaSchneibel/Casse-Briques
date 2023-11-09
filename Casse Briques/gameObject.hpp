@@ -12,10 +12,11 @@ public:
 	void rotation(float mouseX, float mouseY);
 
 	void setDirection(float fDirectionX, float fDirectionY);
-
 	void move(float fDeltaTime);
 
 	void collision();
+
+	void bounce();
 
 	sf::Shape* pShape;
 

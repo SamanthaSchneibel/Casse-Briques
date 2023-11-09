@@ -59,3 +59,9 @@ void GameObject::collision() {
 
 
 }
+
+void GameObject::bounce() {
+
+
+
+}
