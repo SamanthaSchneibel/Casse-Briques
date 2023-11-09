@@ -32,21 +32,26 @@ void GameObject::rotation(float mouseX, float mouseY) {
 
 }
 
-void GameObject::move(float fDeltaTime, float directionX, float directionY) {
+void GameObject::setDirection(float directionX, float directionY) {
 
 	float norme = sqrt((directionX * directionX) + (directionY * directionY));
-	float nDirectionX = directionX / norme;
-	float nDirectionY = directionY / norme;
+	this->directionX = directionX / norme;
+	this->directionY = directionY / norme;
+
+}
+
+void GameObject::move(float fDeltaTime) {
+
+	speed = 500.f;
 
 	float ballX = pShape->getPosition().x;
 	float ballY = pShape->getPosition().y;
 
-	float speed = 500.f;
+	ballX = ballX + directionX * speed * fDeltaTime;
+	ballY = ballY + directionY * speed * fDeltaTime;
 
-	ballX += nDirectionX * speed * fDeltaTime;
-	ballY += nDirectionY * speed * fDeltaTime;
+	pShape->setPosition(ballX, ballY); 
 
-	pShape->setPosition(ballX, ballY);
 }
 
 void GameObject::collision() {

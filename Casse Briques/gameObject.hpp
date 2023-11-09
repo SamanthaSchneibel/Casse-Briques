@@ -10,13 +10,19 @@ public:
 	~GameObject();
 
 	void rotation(float mouseX, float mouseY);
-	void move(float fDeltaTime, float directionX, float directionY);
+
+	void setDirection(float fDirectionX, float fDirectionY);
+
+	void move(float fDeltaTime);
+
 	void collision();
 
 	sf::Shape* pShape;
 
 private:
 
-
+	float directionX;
+	float directionY;
+	float speed;
 
 };
