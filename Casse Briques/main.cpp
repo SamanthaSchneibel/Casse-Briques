@@ -10,8 +10,6 @@ int main(int argc, char** argv)
     GameObject oCanon(320, 480, 20, 40, sf::Color::Red);
     GameObject oBall(320, 480, 10, sf::Color::White);
 
-    std::vector<GameObject>;
-
     //GameLoop
     sf::Clock oClock;
     bool click = false;
