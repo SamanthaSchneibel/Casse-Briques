@@ -7,8 +7,8 @@ int main(int argc, char** argv)
     //Création d'une fenêtre
     sf::RenderWindow oWindow(sf::VideoMode(640, 480), "Casse Briques");
 
-    GameObject oCanon(320, 480, 20, 40, sf::Color::Red);
     GameObject oBall(320, 480, 10, sf::Color::White);
+    GameObject oCanon(320, 480, 20, 40, sf::Color::Red);
     GameObject oBrick(50, 50, 100, 50, sf::Color::Blue);
 
     //GameLoop
@@ -31,8 +31,8 @@ int main(int argc, char** argv)
                 {
                     float mouseX = sf::Mouse::getPosition(oWindow).x;
                     float mouseY = sf::Mouse::getPosition(oWindow).y;
-                    float ballX = oBall.pShape->getPosition().x;
-                    float ballY = oBall.pShape->getPosition().y;
+                    float ballX = oBall.hitBox->getPosition().x;
+                    float ballY = oBall.hitBox->getPosition().y;
 
                     oBall.setDirection(mouseX - ballX, mouseY - ballY);
                 }
@@ -49,9 +49,10 @@ int main(int argc, char** argv)
         //DRAW
         oWindow.clear();
 
+        oWindow.draw(*oBall.hitBox);
         oWindow.draw(*oBall.pShape);
-        oWindow.draw(*oCanon.pShape);
         oWindow.draw(*oBrick.pShape);
+        oWindow.draw(*oCanon.pShape);
        
         oWindow.display();
 

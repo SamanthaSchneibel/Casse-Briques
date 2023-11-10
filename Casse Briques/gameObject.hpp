@@ -14,16 +14,22 @@ public:
 	void setDirection(float fDirectionX, float fDirectionY);
 	void move(float fDeltaTime);
 
+	void getX();
+	void getY();
+	bool isInside(float v, float vMin, float vMax);
 	void collision();
 
 	void bounce();
 
 	sf::Shape* pShape;
+	sf::RectangleShape* hitBox;
 
 private:
 
 	float directionX;
 	float directionY;
 	float speed;
+	float sizeX;
+	float sizeY;
 
 };

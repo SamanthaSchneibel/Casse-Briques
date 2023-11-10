@@ -13,6 +13,14 @@ GameObject::GameObject(int x, int y, int radius, sf::Color oColor)
 	pShape->setPosition(x, y);
 	pShape->setFillColor(oColor);
 	pShape->setOrigin(radius, radius);
+
+	float sizeX = radius;
+	float sizeY = radius;
+	
+	hitBox = new sf::RectangleShape(sf::Vector2f(radius * 2, radius * 2));
+	hitBox->setPosition(x, y);
+	hitBox->setFillColor(sf::Color::Green);
+	hitBox->setOrigin(radius, radius);
 }
 
 GameObject::~GameObject()
@@ -51,6 +59,28 @@ void GameObject::move(float fDeltaTime) {
 	ballY = ballY + directionY * speed * fDeltaTime;
 
 	pShape->setPosition(ballX, ballY); 
+	hitBox->setPosition(ballX, ballY); 
+
+}
+
+void GameObject::getX() {
+
+	sf::Vector2f vect;
+	vect.x = pShape->getPosition().x - sizeX / 2;
+	vect.y = pShape->getPosition().x + sizeX / 2;
+	return vect;
+
+}
+
+void GameObject::getY() {
+
+
+}
+
+bool GameObject::isInside(float v, float vMin, float vMax) {
+
+	v > vMin;
+	v < vMax;
 
 }
 
