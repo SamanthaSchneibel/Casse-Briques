@@ -61,7 +61,8 @@ void GameObject::setPosition(float x, float y) {
 
 void GameObject::move(float fDeltaTime) {
 
-	speed = 50.f;
+	speed = 500.f;
+
 
 	float ballX = pShape->getPosition().x;
 	float ballY = pShape->getPosition().y;
@@ -101,7 +102,7 @@ bool GameObject::isInside(float v, float vMin, float vMax) {
 
 }
 
-void GameObject::checkCollision(GameObject* object) {
+bool GameObject::checkCollision(GameObject* object) {
 
 	GameObject* minWidth;
 	GameObject* maxWidth;
@@ -134,16 +135,45 @@ void GameObject::checkCollision(GameObject* object) {
 	bool yMinInside = isInside(yMinMax.x, yMinMaxObj.x, yMinMaxObj.y);
 	bool yMaxInside = isInside(yMinMax.y, yMinMaxObj.x, yMinMaxObj.y);
 	
-	if ((xMinInside or xMaxInside) and (yMinInside or yMaxInside))
+	if ((xMinInside or xMaxInside) and (yMinInside or yMaxInside)) {
 		std::cout << "collision" << std::endl;
-	else
+		return true;
+	}
+	else {
 		std::cout << "-------" << std::endl;
+		return false;
+	}
+
 
 }
 
 void GameObject::collision() {
 
 
+
+}
+
+
+void GameObject::checkBounce() {
+	
+	float positionX = pShape->getPosition().x;
+	float positionY = pShape->getPosition().y;
+	if (positionX > 640) {
+		std::cout << "collision" << std::endl;
+		directionX = -directionX;
+	}
+	if (positionX < 0) {
+		std::cout << "collision" << std::endl;
+		directionX = -directionX;
+	}
+	if (positionY < 0) {
+		std::cout << "collision" << std::endl;
+		directionY = -directionY;
+	}
+
+	if (checkCollision(GameObject * object) == true) {
+		std::cout << "collision" << std::endl
+	}
 
 }
 

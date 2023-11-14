@@ -45,9 +45,10 @@ int main(int argc, char** argv)
         fDeltaTime = oClock.restart().asSeconds();
         oCanon.rotation(sf::Mouse::getPosition(oWindow).x, sf::Mouse::getPosition(oWindow).y);
         
-        //oBall.move(fDeltaTime);
-        oBall.setPosition(sf::Mouse::getPosition(oWindow).x, sf::Mouse::getPosition(oWindow).y);
+        oBall.move(fDeltaTime);
+        //oBall.setPosition(sf::Mouse::getPosition(oWindow).x, sf::Mouse::getPosition(oWindow).y);
         oBall.checkCollision(&oBrick);
+        oBall.checkBounce();
 
         //DRAW
         oWindow.clear();

@@ -18,9 +18,10 @@ public:
 	sf::Vector2f getXMinMax();
 	sf::Vector2f getYMinMax();
 	bool isInside(float v, float vMin, float vMax);
-	void checkCollision(GameObject* object);
+	bool checkCollision(GameObject* object);
 	void collision();
 
+	void checkBounce();
 	void bounce();
 
 	sf::Shape* pShape;
