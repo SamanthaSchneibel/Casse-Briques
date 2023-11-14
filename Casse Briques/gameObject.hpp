@@ -21,7 +21,8 @@ public:
 	bool checkCollision(GameObject* object);
 	void collision();
 
-	void checkBounce();
+	void checkBounceWindow();
+	void checkBounce(GameObject* object);
 	void bounce();
 
 	sf::Shape* pShape;

@@ -144,7 +144,6 @@ bool GameObject::checkCollision(GameObject* object) {
 		return false;
 	}
 
-
 }
 
 void GameObject::collision() {
@@ -153,11 +152,11 @@ void GameObject::collision() {
 
 }
 
-
-void GameObject::checkBounce() {
+void GameObject::checkBounceWindow() {
 	
 	float positionX = pShape->getPosition().x;
 	float positionY = pShape->getPosition().y;
+
 	if (positionX > 640) {
 		std::cout << "collision" << std::endl;
 		directionX = -directionX;
@@ -171,9 +170,18 @@ void GameObject::checkBounce() {
 		directionY = -directionY;
 	}
 
-	if (checkCollision(GameObject * object) == true) {
-		std::cout << "collision" << std::endl
-	}
+}
+
+void GameObject::checkBounce(GameObject* object) {
+
+	float positionX = pShape->getPosition().x;
+	float positionY = pShape->getPosition().y;
+
+	sf::Vector2f xMinMax = getXMinMax();
+	sf::Vector2f yMinMax = getYMinMax();
+	sf::Vector2f xMinMaxObj = object->getXMinMax();
+	sf::Vector2f yMinMaxObj = object->getYMinMax();
+
 
 }
 
