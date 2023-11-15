@@ -1,4 +1,5 @@
-#include "gameObject.hpp"
+#include "ball.hpp"
+#include "brick.hpp"
 #include "canon.hpp"
 #include <vector>
 
@@ -7,13 +8,23 @@ int main(int argc, char** argv)
     //Création d'une fenêtre
     sf::RenderWindow oWindow(sf::VideoMode(640, 480), "Casse Briques");
 
-    GameObject oBall(320, 480, 10, sf::Color::White);
-    GameObject oCanon(320, 480, 20, 40, sf::Color::Red);
-    GameObject oBrick(50, 50, 100, 50, sf::Color::Blue);
+    std::vector<Ball*> listBall;
+    Canon oCanon;
+    std::vector<Brick*> listBrick;
+
+    listBrick.push_back(new Brick(50, 50));
+    listBrick.push_back(new Brick(152, 50));
+    listBrick.push_back(new Brick(254, 50));
+    listBrick.push_back(new Brick(356, 50));
+    listBrick.push_back(new Brick(458, 50));
+    listBrick.push_back(new Brick(50, 102));
+    listBrick.push_back(new Brick(152, 102));
+    listBrick.push_back(new Brick(254, 102));
+    listBrick.push_back(new Brick(356, 102));
+    listBrick.push_back(new Brick(458, 102));
 
     //GameLoop
     sf::Clock oClock;
-    bool click = false;
     float fDeltaTime = 0;
     while (oWindow.isOpen())
     {
@@ -27,38 +38,55 @@ int main(int argc, char** argv)
      
             if (oEvent.type == sf::Event::EventType::MouseButtonPressed && oEvent.mouseButton.button == sf::Mouse::Left)
             {
-                if (click == false)
-                {
-                    float mouseX = sf::Mouse::getPosition(oWindow).x;
-                    float mouseY = sf::Mouse::getPosition(oWindow).y;
-                    float ballX = oBall.hitBox->getPosition().x;
-                    float ballY = oBall.hitBox->getPosition().y;
-
-                    oBall.setDirection(mouseX - ballX, mouseY - ballY);
-                }
-                click = true;
+                listBall.push_back(new Ball(sf::Mouse::getPosition(oWindow).x, sf::Mouse::getPosition(oWindow).y));
             }
 
         }
         
         //UPDATE
         fDeltaTime = oClock.restart().asSeconds();
+
         oCanon.rotation(sf::Mouse::getPosition(oWindow).x, sf::Mouse::getPosition(oWindow).y);
         
-        oBall.move(fDeltaTime);
-        //oBall.setPosition(sf::Mouse::getPosition(oWindow).x, sf::Mouse::getPosition(oWindow).y);
-        if (oBall.checkCollision(&oBrick))
-        {
-            oBall.checkBounce(&oBrick);
+        for (auto ball = listBall.begin(); ball != listBall.end();) {
+            (*ball)->move(fDeltaTime);
+            //oBall.setPosition(sf::Mouse::getPosition(oWindow).x, sf::Mouse::getPosition(oWindow).y);
+            for (auto brick = listBrick.begin(); brick != listBrick.end(); brick++)
+            {
+                if ((*ball)->checkCollision(*brick))
+                {
+                    (*brick)->damage();
+                    if ((*brick)->damage() == true) {
+                        delete* brick;
+                        brick = listBrick.erase(brick);
+                    }
+                    else {
+                        brick++;
+                    }
+                    (*ball)->checkBounce(*brick);
+                }
+            }
+            (*ball)->checkBounceWindow();
+            if ((*ball)->eraseBall()) {
+                delete* ball;
+                ball = listBall.erase(ball);
+            }
+            else {
+                ball++;
+            }
         }
-        oBall.checkBounceWindow();
 
         //DRAW
         oWindow.clear();
 
-        oWindow.draw(*oBall.hitBox);
-        oWindow.draw(*oBall.pShape);
-        oWindow.draw(*oBrick.pShape);
+        for (auto ball = listBall.begin(); ball != listBall.end(); ball++) {
+            oWindow.draw(*(*ball)->pShape);
+        }
+
+        for (auto brick = listBrick.begin(); brick != listBrick.end(); brick++) {
+            oWindow.draw(*(*brick)->pShape);
+        }
+
         oWindow.draw(*oCanon.pShape);
        
         oWindow.display();

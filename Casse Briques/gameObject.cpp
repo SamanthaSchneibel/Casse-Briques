@@ -36,6 +36,7 @@ void GameObject::rotation(float mouseX, float mouseY) {
 	pShape->setOrigin(10, 40);
 	float canonX = pShape->getPosition().x;
 	float canonY = pShape->getPosition().y;
+
 	float opp = mouseX - canonX;
 	float adj = mouseY - canonY;
 
@@ -62,7 +63,6 @@ void GameObject::setPosition(float x, float y) {
 void GameObject::move(float fDeltaTime) {
 
 	speed = 500.f;
-
 
 	float ballX = pShape->getPosition().x;
 	float ballY = pShape->getPosition().y;
@@ -196,7 +196,5 @@ void GameObject::checkBounce(GameObject* object) {
 		std::cout << "collision" << std::endl;
 		directionY = -directionY;
 	}
-
-
 
 }
