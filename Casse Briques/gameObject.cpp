@@ -136,19 +136,12 @@ bool GameObject::checkCollision(GameObject* object) {
 	bool yMaxInside = isInside(yMinMax.y, yMinMaxObj.x, yMinMaxObj.y);
 	
 	if ((xMinInside or xMaxInside) and (yMinInside or yMaxInside)) {
-		std::cout << "collision" << std::endl;
 		return true;
 	}
 	else {
 		std::cout << "-------" << std::endl;
 		return false;
 	}
-
-}
-
-void GameObject::collision() {
-
-
 
 }
 
@@ -182,10 +175,27 @@ void GameObject::checkBounce(GameObject* object) {
 	sf::Vector2f xMinMaxObj = object->getXMinMax();
 	sf::Vector2f yMinMaxObj = object->getYMinMax();
 
+	float right = abs(xMinMaxObj.y - xMinMax.x);
+	float left = abs(xMinMaxObj.x - xMinMax.y);
+	float top = abs(yMinMaxObj.x - yMinMax.y);
+	float bottom = abs(yMinMaxObj.y - yMinMax.x);
 
-}
-
-void GameObject::bounce() {
+	if (right < left and right < top and right < bottom) {
+		std::cout << "collision" << std::endl;
+		directionX = -directionX;
+	}
+	if (left < right and left < top and left < bottom) {
+		std::cout << "collision" << std::endl;
+		directionX = -directionX;
+	}
+	if (top < right and top < left and top < bottom) {
+		std::cout << "collision" << std::endl;
+		directionY = -directionY;
+	}
+	if (bottom < right and bottom < left and bottom < top) {
+		std::cout << "collision" << std::endl;
+		directionY = -directionY;
+	}
 
 
 

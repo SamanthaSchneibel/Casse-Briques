@@ -47,7 +47,10 @@ int main(int argc, char** argv)
         
         oBall.move(fDeltaTime);
         //oBall.setPosition(sf::Mouse::getPosition(oWindow).x, sf::Mouse::getPosition(oWindow).y);
-        oBall.checkCollision(&oBrick);
+        if (oBall.checkCollision(&oBrick))
+        {
+            oBall.checkBounce(&oBrick);
+        }
         oBall.checkBounceWindow();
 
         //DRAW
