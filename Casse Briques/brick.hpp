@@ -6,10 +6,12 @@ public:
 	Brick(int x, int y);
 	~Brick();
 
-	bool damage();
+	bool inCollision() override;
 
 private:
 
 	int life;
+	int width;
+	int height;
 
 };

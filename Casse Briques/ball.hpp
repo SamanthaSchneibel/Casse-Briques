@@ -8,8 +8,13 @@ public:
 
 	bool eraseBall();
 
+	bool onCollision(GameObject* object) override;
+
 	std::vector<GameObject*> colliding;
 
 private:
+
+	float width;
+	float height;
 
 };
